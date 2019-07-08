@@ -1,6 +1,6 @@
 version: "3"
 services: 
-  app:
+  web:
     # build - command builds Docker images from a Dockerfile and a “context”.
     build: 
     # A build’s context is the set of files located in the specified PATH or URL. The build process can refer to any of the files in the context.  --(explains where saved Dockerfile)--
@@ -9,4 +9,5 @@ services:
       - "8080:8080"
     # volumes - mounts (maps) the folder with app-project and syncs  it in real time
     volumes: 
-      - ./app:/app
+      - ./web:/code
+    command: django-admin startproject app .

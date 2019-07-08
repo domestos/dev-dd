@@ -1,11 +1,19 @@
 FROM python:3.7-alpine
-#need read about it
+# set PYTHONUNBUFFERED so output is displayed in the Docker log
 ENV PYTHONUNBUFFERED 1
-RUN mkdir dd_app/
-COPY ./requirements.txt dd_app/requirements.txt
-WORKDIR /dd_app/
+#create folder in a docker container
+RUN mkdir code/
+# copy dependencies to new folder in docker container
+COPY ./web/requirements.txt /code/requirements.txt
+# set work dir
+WORKDIR /code/
+#install dependencies
 RUN pip install -r requirements.txt
-ADD ./app /dd_app/
+#mount local folder to docker folder
+ADD ./web /dd_app/
 
-# RUN adduser --disabled-login  valera
+
+# RUN adduser -D  valera
+#for windows
+#RUN adduser --disabled-login  valera
 # USER valera
