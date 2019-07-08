@@ -1,16 +1,20 @@
-FROM python:3.7-alpine
+FROM python:3.5
 # set PYTHONUNBUFFERED so output is displayed in the Docker log
+ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 #create folder in a docker container
-RUN mkdir code/
+RUN mkdir project/
 # copy dependencies to new folder in docker container
-COPY ./web/requirements.txt /code/requirements.txt
+COPY ./web/requirements.txt /project/requirements.txt
 # set work dir
-WORKDIR /code/
+WORKDIR /project/
 #install dependencies
-RUN pip install -r requirements.txt
+# RUN pip install pip -U
+# RUN apt-get update
+
+RUN pip install  --upgrade pip && pip install -r  requirements.txt
 #mount local folder to docker folder
-ADD ./web /dd_app/
+ADD ./web /project/
 
 
 # RUN adduser -D  valera

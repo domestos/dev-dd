@@ -1,5 +1,20 @@
 version: "3"
 services: 
+  # db:
+  #   image: mysql:5.7
+  #   command: mysqld --default-authentication-plugin=mysql_native_password
+  #   volumes:
+  #     - "./db:/var/lib/mysql"
+  #   ports:
+  #     - "3306:3306"
+  #   restart: always
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=rootpass
+
+  #     - MYSQL_DATABASE=db_dd_app
+  #     - MYSQL_USER=dd_user
+  #     - MYSQL_PASSWORD=dd_pass
+
   web:
     # build - command builds Docker images from a Dockerfile and a “context”.
     build: 
@@ -9,5 +24,11 @@ services:
       - "8080:8080"
     # volumes - mounts (maps) the folder with app-project and syncs  it in real time
     volumes: 
-      - ./web:/code
+      - ./web:/project
+    #restart: always
     command: django-admin startproject app .
+    #command:  python manage.py runserver 0.0.0.0:8080
+    # depends_on:
+      # - db
+
+#https://medium.com/@minghz42/docker-setup-for-django-on-mysql-1f063c9d16a0
